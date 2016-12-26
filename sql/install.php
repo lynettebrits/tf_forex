@@ -1,24 +1,106 @@
 <?php
 
-// Connect to MySQL
-$link = mysqli_connect('localhost', 'root', 'password');
-if (!$link) {
-    die('Could not connect: ' . mysql_error());
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "tf_forex";
+$products = "products";
+$user = "user";
+$customer = "customer";
+$promotions = "promotions";
+$orders = "orders";
+
+$conn = new mysqli($servername, $username, $password, $database);
+
+if (mysqli_connect_error()) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+echo "Connected successfully <br />";
+
+$sql = "CREATE TABLE IF NOT EXISTS $products (
+product_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+currency VARCHAR (5) DEFAULT NULL,
+value DECIMAL (7,7) DEFAULT NULL,
+dateupdated DATETIME,
+comment VARCHAR(300) DEFAULT NULL
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table Products created successfully <br />";
+} else {
+    echo "Error creating products table: " . $conn->error;
 }
 
-// Make my_db the current database
-$db_selected = mysql_select_db('tf_forex', $link);
+$sql = "CREATE TABLE IF NOT EXISTS $user (
+user_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+firstname VARCHAR (45) NOT NULL,
+lastname VARCHAR (45) NOT NULL,
+email VARCHAR (155) NOT NULL,
+password VARCHAR (155) NOT NULL,
+comment VARCHAR(300) DEFAULT NULL
+)";
 
-if (!$db_selected) {
-    // If we couldn't, then it either doesn't exist, or we can't see it.
-    $sql = 'CREATE DATABASE tf_forex';
-
-    if (mysql_query($sql, $link)) {
-        echo "Database tf_fx created successfully\n";
-    } else {
-        echo 'Error creating database: ' . mysql_error() . "\n";
-    }
+if ($conn->query($sql) === TRUE) {
+    echo "Table User created successfully <br />";
+} else {
+    echo "Error creating user table: " . $conn->error;
 }
 
-mysql_close($link);
+$sql = "CREATE TABLE IF NOT EXISTS $customer (
+customer_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+firstname VARCHAR (45) NOT NULL,
+lastname VARCHAR (45) NOT NULL,
+email VARCHAR (155) NOT NULL,
+password VARCHAR (155) NOT NULL,
+cellphone VARCHAR (10) DEFAULT NULL,
+comment VARCHAR(300) DEFAULT NULL
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table Customer created successfully <br />";
+} else {
+    echo "Error creating customer table: " . $conn->error;
+}
+
+$sql = "CREATE TABLE IF NOT EXISTS $promotions (
+promotion_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+product_id INT(6) NOT NULL,
+value DECIMAL (10,2) DEFAULT NULL,
+comment VARCHAR(300) DEFAULT NULL
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table Promotions created successfully <br />";
+} else {
+    echo "Error creating promotions table: " . $conn->error;
+}
+
+$sql = "CREATE TABLE IF NOT EXISTS $orders (
+order_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+customer_id INT (6) NOT NULL,
+product_one INT(6) NOT NULL,
+product_one_value DECIMAL (7,7) NOT NULL,
+product_two INT(6) NOT NULL,
+product_two_value DECIMAL (7,7) NOT NULL,
+product_three INT(6) NOT NULL,
+product_three_value DECIMAL (7,7) NOT NULL,
+product_four INT(6) NOT NULL,
+product_four_value DECIMAL (7,7) NOT NULL,
+promotion_id INT (6) DEFAULT NULL,
+total DECIMAL NOT NULL,
+date DATETIME,
+comment VARCHAR(300) DEFAULT NULL
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table Orders created successfully <br />";
+} else {
+    echo "Error creating orders table: " . $conn->error;
+}
+
+$conn->close();
 ?>

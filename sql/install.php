@@ -24,7 +24,7 @@ echo "Connected successfully <br />";
 $sql = "CREATE TABLE IF NOT EXISTS $products (
 product_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 currency VARCHAR (5) DEFAULT NULL,
-value DECIMAL (7,7) DEFAULT NULL,
+value FLOAT (7,7) DEFAULT NULL,
 dateupdated DATETIME,
 comment VARCHAR(300) DEFAULT NULL
 )";

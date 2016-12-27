@@ -22,7 +22,22 @@ and open the template in the editor.
             include_once 'install.php';
         }
         include 'sql/populate_products.php';
+        include 'sql/get_products.php';
         ?>
+
+        <script>
+            function update(element) {
+                rob = element;
+                var qty = element.parentElement.parentElement.children[2].children[0].value;
+                var value = element.parentElement.parentElement.children[1].children[0].value;
+                
+                console.log(value, qty);
+                
+                var total = (value - 0) * (qty - 0);
+                
+                element.parentElement.parentElement.children[3].children[0].value = total;
+            }
+        </script>
     </head>
     <body>
         <header>
@@ -45,32 +60,16 @@ and open the template in the editor.
             </nav>
         </header>
         <div class="body_container">
-            <div>
-                <h1>TF Forex - Current Rates</h1>
-                <table>
-                    <tr>
-                        <th>Currency</th>
-                        <th>Rate</th>
-                    </tr>
-                    <tr>
-                        <?php
-                        ?>
-                        <td>USD</td>
-                        <td><?php echo 'R' . $usd ?></td>
-                    </tr>
-                    <tr>
-                        <td>GBP</td>
-                        <td><?php echo 'R' . $gbp ?></td>
-                    </tr>
-                    <tr>
-                        <td>EUR</td>
-                        <td><?php echo 'R' . $eur ?></td>
-                    </tr>
-                    <tr>
-                        <td>KES</td>
-                        <td><?php echo 'R' . $kes ?></td>
-                    </tr>
-                </table>
+            <div class="currency_summary">
+                <h1>TF Forex - Current Rates Calculator</h1>
+                <form name="buyCurrency" action="buy_currency.php" method="post" id="buyCurrency">
+                <?php
+                $currencies = getCurrency();
+                ?>
+                    <br /><br />
+                    <input type="submit" value="Proceed to Buy Currency">
+                    <br /><br />
+                </form>
             </div>
         </div>
         <footer>

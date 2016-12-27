@@ -24,7 +24,7 @@ echo "Connected successfully <br />";
 $sql = "CREATE TABLE IF NOT EXISTS $products (
 product_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 currency VARCHAR (5) DEFAULT NULL,
-value FLOAT (7,7) DEFAULT NULL,
+value FLOAT DEFAULT NULL,
 dateupdated DATETIME,
 comment VARCHAR(300) DEFAULT NULL
 )";
@@ -69,7 +69,7 @@ if ($conn->query($sql) === TRUE) {
 $sql = "CREATE TABLE IF NOT EXISTS $promotions (
 promotion_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 product_id INT(6) NOT NULL,
-value DECIMAL (10,2) DEFAULT NULL,
+value FLOAT DEFAULT NULL,
 comment VARCHAR(300) DEFAULT NULL
 )";
 
@@ -82,15 +82,8 @@ if ($conn->query($sql) === TRUE) {
 $sql = "CREATE TABLE IF NOT EXISTS $orders (
 order_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 customer_id INT (6) NOT NULL,
-product_one INT(6) NOT NULL,
-product_one_value DECIMAL (7,7) NOT NULL,
-product_two INT(6) NOT NULL,
-product_two_value DECIMAL (7,7) NOT NULL,
-product_three INT(6) NOT NULL,
-product_three_value DECIMAL (7,7) NOT NULL,
-product_four INT(6) NOT NULL,
-product_four_value DECIMAL (7,7) NOT NULL,
-promotion_id INT (6) DEFAULT NULL,
+product_id INT(6) NOT NULL,
+product_value FLOAT NOT NULL,
 total DECIMAL NOT NULL,
 date DATETIME,
 comment VARCHAR(300) DEFAULT NULL

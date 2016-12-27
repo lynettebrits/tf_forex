@@ -34,16 +34,17 @@ header h1 {
     font-weight: bold;
 }
 .body_container {
-    width: 1000px;
+    width: 600px;
     margin-left: auto;
     margin-right: auto;
-    text-align: left;
+    text-align: center;
 }
 h1 {
     font-size: 25px;
     text-align: center;
 }
 .foot_nav {
+    clear: both;
     width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -57,4 +58,21 @@ h1 {
 }
 td {
     width: 150px;
+}
+input {
+    width: 75px;
+}
+.confirm a {
+    text-decoration: none;
+    color: #5a5a5a;
+}
+.customer_details input {
+    width: 300px;
+    float: right;
+    clear: right;
+}
+label {
+    width: 110px;
+    text-align: left;
+    float: left;
 }

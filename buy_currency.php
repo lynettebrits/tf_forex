@@ -52,21 +52,39 @@ and open the template in the editor.
             <div class="currency_summary">
                 <h1>Buy Foreign Currency</h1>
                 <?php
-                if (isset($_GET['confirm'])) {
+                if (isset($_GET['customer_id'])) {
+                    $currency = $_GET['currency'];
+                    $order_id = $_GET['order_id'];
+                    $customer_id = $_GET['customer_id'];
+                    ?>
+                    <p>
+                        Invoice Details:
+                    </p>
+                    <?php
+                    $confirmOrder = confirmOrder();
+                    echo '<br /><br />';
+                    $customerInfo = getcustomer();
+                    echo '<br /><br />';
+                    ?>
+                    <a href=<?php echo "checkout.php?currency={$currency}&&order_id={$order_id}&&customer_id={$customer_id}" ?> > Proceed to Payment </a> <br /><br />';
+                    <?php
+                } else if (isset($_GET['confirm'])) {
                     $currency = $_GET['currency'];
                     $order_id = $_GET['order_id'];
                     ?>
-                <p>
-                    Please complete your personal information:
-                </p>
-                <?php
-                echo "<form name='customer_details' action='customer_details.php' method='post' class='customer_details'>";
-                echo formLabel("First Name", "firstname") . textBoxRequired("firstname") . "<br />";
-                echo formLabel("Last Name", "lastname") . textBoxRequired("lastname") . "<br />";
-                echo formLabel("Email Address", "email") . textBoxRequired("email") . "<br />";
-                echo formLabel("Password", "password") . textBoxRequired("password") . "<br />";
-                echo formLabel("Cellphone", "cellphone") . textBoxRequired("cellphone") . "<br />";
-                echo "</form>";
+                    <p>
+                        Please complete your personal information:
+                    </p>
+                    <?php
+                    echo "<form name='customer_details' action='sql/customer_details.php?currency=$currency&&order_id=$order_id' method='post' class='customer_details'>";
+                    echo formLabel("First Name", "firstname") . textBoxRequired("firstname") . "<br />";
+                    echo formLabel("Last Name", "lastname") . textBoxRequired("lastname") . "<br />";
+                    echo formLabel("Email Address", "email") . textBoxRequired("email") . "<br />";
+                    echo formLabel("Password", "password") . textBoxRequired("password") . "<br />";
+                    echo formLabel("Cellphone", "cellphone") . textBox("cellphone") . "<br />";
+                    echo formLabel('') . submit("Proceed to Payment");
+                    echo '<br /><br />';
+                    echo "</form>";
                 } else if (isset($_GET['order_id'])) {
                     $currency = $_GET['currency'];
                     $order_id = $_GET['order_id'];
@@ -122,10 +140,5 @@ and open the template in the editor.
                 <?php } ?>
             </div>
         </div>
-        <footer>
-            <div class="foot_nav">
-                <a href="login">Login</a>
-            </div>
-        </footer>
     </body>
 </html>

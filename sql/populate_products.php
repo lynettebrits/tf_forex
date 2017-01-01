@@ -37,8 +37,8 @@ if (empty($date)) {
         $eur = ($usdstart * $zarstart) / $eurstart;
         $kes = ($usdstart * $zarstart) / $kesstart;
 
-        $sql = "INSERT INTO products (currency, value, dateupdated)
-	VALUE	('USD', '$usd', now()), ('GBP', $gbp, now()), ('EUR', $eur, now()), ('KES', $kes, now());";
+        $sql = "INSERT INTO products (currency, value, surcharge, dateupdated)
+	VALUE	('USD', '$usd', '7.5', now()), ('GBP', $gbp, 5, now()), ('EUR', $eur, 5, now()), ('KES', $kes, 2.5, now());";
         $result = $conn->query($sql);
         if ($result === false) {
             echo "<p>" . $conn->error . "</p>";

@@ -11,16 +11,14 @@ and open the template in the editor.
         <title>TF_Forex | Home</title>
 
         <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $database = "tf_forex";
-
-        $conn = new mysqli($servername, $username, $password, $database);
-        $query = "SELECT product_id FROM products";
-        if (empty($conn)) {
-            include_once 'install.php';
-        }
+        include 'sql/install.php';        
+        installDb();
+        createProducts();
+        createUser();
+        createCustomer();
+        createPromotions();
+        createOrders();
+        
         include 'sql/populate_products.php';
         include 'sql/get_products.php';
         ?>
@@ -30,12 +28,30 @@ and open the template in the editor.
                 rob = element;
                 var qty = element.parentElement.parentElement.children[2].children[0].value;
                 var value = element.parentElement.parentElement.children[1].children[0].value;
+                var surcharge = element.parentElement.parentElement.children[3].children[0].value;
+
+                console.log(value, qty, surcharge);
+
+                var subTotal = (value - 0) * (qty - 0);
+                var surchargeTotal = subTotal * (surcharge - 0)/100;
+                var total = subTotal+surchargeTotal;
                 
-                console.log(value, qty);
+                element.parentElement.parentElement.children[4].children[0].value = total;
+            }
+            
+            function calculate(element) {
+                rob = element;
+                var qty = element.parentElement.parentElement.children[0].children[0].value;
+                var value = element.parentElement.parentElement.children[2].children[0].value;
+                var surcharge = element.parentElement.parentElement.children[3].children[0].value;
+
+                console.log(value, qty, surcharge);
+
+                var subTotal = (qty - 0) / (value - 0);
+                var surchargeTotal = subTotal * (surcharge - 0)/100;
+                var total = subTotal+surchargeTotal;
                 
-                var total = (value - 0) * (qty - 0);
-                
-                element.parentElement.parentElement.children[3].children[0].value = total;
+                element.parentElement.parentElement.children[4].children[0].value = total;
             }
         </script>
     </head>
@@ -62,20 +78,22 @@ and open the template in the editor.
         <div class="body_container">
             <div class="currency_summary">
                 <h1>TF Forex - Current Rates Calculator</h1>
-                <form name="buyCurrency" action="buy_currency.php" method="post" id="buyCurrency">
                 <?php
-                $currencies = getCurrency();
+                if (isset($_GET['forex'])) {
+                    echo '<p>Your order is confirmed</p>';
+                }
                 ?>
+                <form name="buyCurrency" action="buy_currency.php" method="post" id="buyCurrency">
+                    <?php
+                    $currencies = getCurrency();
+                    echo '<br /><br />';
+                    $zarAvailable = randsAvailable();
+                    ?>
                     <br /><br />
-                    <input type="submit" value="Proceed to Buy Currency">
+                    <input type="submit" value="Purchase">
                     <br /><br />
                 </form>
             </div>
         </div>
-        <footer>
-            <div class="foot_nav">
-                <a href="login">Login</a>
-            </div>
-        </footer>
     </body>
 </html>

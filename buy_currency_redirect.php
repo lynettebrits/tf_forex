@@ -25,8 +25,8 @@ if (isset($_POST["calc_input"])) {
 
     $currency = $_GET['currency'];
 
-    $sql = "INSERT INTO orders (product_id, product_value, total, date)
-	VALUE	($currency, $value, $total, NOW())";
+    $sql = "INSERT INTO orders (product_id, product_value, qty, total, date)
+	VALUE	($currency, $value, $qty, $total, NOW())";
     $result = $connection->query($sql);
     if ($result === false) {
         echo "<p>" . $connection->error . "</p>";

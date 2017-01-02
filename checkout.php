@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -12,6 +8,7 @@ and open the template in the editor.
 
         <?php
         include 'sql/get_products.php';
+        include 'sql/install.php';
         ?>
     </head>
     <body>
@@ -38,16 +35,22 @@ and open the template in the editor.
             <div class="currency_summary">
                 <h1>Checkout</h1>
                 <?php
-                $currency = $_GET['currency'];
+                $currencyid = $_GET['currency'];
                 $order_id = $_GET['order_id'];
                 $customer_id = $_GET['customer_id'];
+                
+                echo "<form name='confirmOrder' action='checkout_redirect.php'  method='get' class='checkout'>";
 
+                
+                
                 $promoValue = getPromotions();
                 echo '<br /><br />';
                 $customerInfo = getcustomer();
+                echo '<br />';
+                echo submit('Proceed with order');
+                echo '</form>';
                 ?>
-                <br />
-                <a href=<?php echo "checkout_redirect.php?currency={$currency}&&order_id={$order_id}&&customer_id={$customer_id}" ?> > Proceed to Payment </a> <br /><br />';
+
             </div>
         </div>
     </body>

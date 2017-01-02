@@ -12,6 +12,7 @@ and open the template in the editor.
 
         <?php
         include 'sql/get_products.php';
+        include 'sql/install.php'
         ?>
 
         <script>
@@ -19,12 +20,15 @@ and open the template in the editor.
                 rob = element;
                 var qty = element.parentElement.parentElement.children[2].children[0].value;
                 var value = element.parentElement.parentElement.children[1].children[0].value;
+                var surcharge = element.parentElement.parentElement.children[3].children[0].value;
 
-                console.log(value, qty);
+                console.log(value, qty, surcharge);
 
-                var total = (value - 0) * (qty - 0);
+                var subTotal = (value - 0) * (qty - 0);
+                var surchargeTotal = subTotal * (surcharge - 0)/100;
+                var total = subTotal+surchargeTotal;
 
-                element.parentElement.parentElement.children[3].children[0].value = total;
+                element.parentElement.parentElement.children[4].children[0].value = total;
             }
         </script>
     </head>
@@ -66,7 +70,7 @@ and open the template in the editor.
                     $customerInfo = getcustomer();
                     echo '<br /><br />';
                     ?>
-                    <a href=<?php echo "checkout.php?currency={$currency}&&order_id={$order_id}&&customer_id={$customer_id}" ?> > Proceed to Payment </a> <br /><br />';
+                    <a href=" <?php echo "checkout.php?currency={$currency}&&order_id={$order_id}&&customer_id={$customer_id}" ?> "> Proceed to Payment </a> <br /><br />';
                     <?php
                 } else if (isset($_GET['confirm'])) {
                     $currency = $_GET['currency'];

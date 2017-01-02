@@ -17,14 +17,14 @@ header h1 {
     
 }
 .main_nav ul {
-    display: inline;
+    display: inline-block;
     list-style-type: none;
     
 }
 .main_nav li {
     display: inline-block;
     text-align: left;
-    width: 100px;
+    width: 250px;
 }
 .main_nav a {
     text-decoration: none;
@@ -75,4 +75,7 @@ label {
     width: 110px;
     text-align: left;
     float: left;
+}
+.checkout input {
+    width: 75px;
 }

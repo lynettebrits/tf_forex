@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -11,15 +6,16 @@ and open the template in the editor.
         <title>TF_Forex | Home</title>
 
         <?php
-        include 'sql/install.php';        
+        include 'sql/install.php';
         installDb();
         createProducts();
         createUser();
         createCustomer();
         createPromotions();
         createOrders();
-        
+
         include 'sql/populate_products.php';
+        populateProducts();
         include 'sql/get_products.php';
         ?>
 
@@ -33,12 +29,12 @@ and open the template in the editor.
                 console.log(value, qty, surcharge);
 
                 var subTotal = (value - 0) * (qty - 0);
-                var surchargeTotal = subTotal * (surcharge - 0)/100;
-                var total = subTotal+surchargeTotal;
-                
+                var surchargeTotal = subTotal * (surcharge - 0) / 100;
+                var total = subTotal + surchargeTotal;
+
                 element.parentElement.parentElement.children[4].children[0].value = total;
             }
-            
+
             function calculate(element) {
                 rob = element;
                 var qty = element.parentElement.parentElement.children[0].children[0].value;
@@ -48,9 +44,9 @@ and open the template in the editor.
                 console.log(value, qty, surcharge);
 
                 var subTotal = (qty - 0) / (value - 0);
-                var surchargeTotal = subTotal * (surcharge - 0)/100;
-                var total = subTotal+surchargeTotal;
-                
+                var surchargeTotal = subTotal * (surcharge - 0) / 100;
+                var total = subTotal + surchargeTotal;
+
                 element.parentElement.parentElement.children[4].children[0].value = total;
             }
         </script>
@@ -62,16 +58,6 @@ and open the template in the editor.
                     <div class="welcome">
                         <h1>Welcome to TF_Forex</h1>
                     </div>
-                    <div class="main_nav">
-                        <ul>
-                            <li>
-                                <a href="index.php" class="active">Home</a>
-                            </li>
-                            <li>
-                                <a href="cust_login">Login</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </nav>
         </header>
@@ -81,6 +67,9 @@ and open the template in the editor.
                 <?php
                 if (isset($_GET['forex'])) {
                     echo '<p>Your order is confirmed</p>';
+                }
+                if (isset($_GET['message'])) {
+                    echo '<p>Incorrect Login Details. Please try again.  </p>';
                 }
                 ?>
                 <form name="buyCurrency" action="buy_currency.php" method="post" id="buyCurrency">
@@ -94,6 +83,17 @@ and open the template in the editor.
                     <br /><br />
                 </form>
             </div>
+            <form action="checklogin.php" method="post">
+                <div class="container">
+                    <label>Username</label>
+                    <input type="text" placeholder="Email" name="email" required>
+                    <br />
+                    <label><b>Password</b></label>
+                    <input type="text" placeholder="Password" name="password" required>
+                    <br />
+                    <button type="submit">Login</button>
+                </div>
+            </form>
         </div>
     </body>
 </html>

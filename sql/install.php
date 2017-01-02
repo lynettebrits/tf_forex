@@ -124,8 +124,9 @@ function createOrders() {
 order_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 customer_id INT (6) NOT NULL,
 product_id INT(6) NOT NULL,
+qty FLOAT NOT NULL,
 product_value FLOAT NOT NULL,
-total DECIMAL NOT NULL,
+total FLOAT NOT NULL,
 date DATETIME,
 paid INT(6) DEFAULT 0,
 comment VARCHAR(300) DEFAULT NULL

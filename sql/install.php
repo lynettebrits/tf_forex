@@ -103,7 +103,7 @@ function createPromotions() {
 
     $sql = "CREATE TABLE IF NOT EXISTS promotions (
 promotion_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-product_id INT(6) NOT NULL,
+currency VARCHAR(6) NOT NULL,
 value FLOAT DEFAULT NULL,
 comment VARCHAR(300) DEFAULT NULL
 )";
